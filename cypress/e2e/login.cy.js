@@ -17,21 +17,21 @@ describe('Testes de Login', () => {
     cadastro.preencherFormularioDeCadastroCompleto(firstName, lastName, password)
   })
 
-  it('Login com sucesso', () => {
+  it('CT2- Login com sucesso', () => {
     cy.visit('/login')
     login.preencherFormularioDeLogin(email, password)
 
     cy.contains('a', `Logged in as ${name}`).should('be.visible')
   })
 
-  it('Login com email errado', () => {
+  it('CT3- Login com email errado', () => {
     cy.visit('/login')
     login.preencherFormularioDeLogin('email@errado.com', password)
 
     cy.contains('p', 'Your email or password is incorrect!').should('be.visible')
   })
 
-  it('Logout', () => {
+  it('CT4- Logout', () => {
     cy.visit('/login')
     login.preencherFormularioDeLogin(email, password)
     cy.contains('a', ' Logout').click()
