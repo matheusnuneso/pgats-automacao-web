@@ -13,13 +13,25 @@ class Produto {
         cy.get('#submit_search').click()
     }
 
+    adicionarProdutoCarrinho(idProduto){
+        cy.contains('a', 'Products').click()
+        cy.get(`a.add-to-cart[data-product-id="${idProduto}"]`).first().click()
+        
+        cy.get('.modal-content').then(($modal) => {
+            if ($modal.is(':visible')) {
+                cy.wrap($modal)
+                    .contains('button', 'Continue Shopping')
+                    .click()
+            }
+        })
+    }
+
     subscription(){
         const email = faker.internet.email()
 
         cy.get('#susbscribe_email').type(email)
         cy.get('#subscribe').click()
     }
-
 
 }
 

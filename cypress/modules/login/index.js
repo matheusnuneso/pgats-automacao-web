@@ -6,6 +6,11 @@ class Login {
 
     cy.get(`[data-qa="login-button"]`).click()
   }
+
+  logout(){
+    cy.contains('a', ' Logout').click()
+    cy.url().should('include', '/login')   
+  }
 }
 
 export default new Login()

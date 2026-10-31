@@ -36,6 +36,8 @@ class Cadastro {
     cy.get('[data-qa="mobile_number"]').type('111 222 333')
 
     cy.get('[data-qa="create-account"]').click()
+
+    cy.contains('b', 'Account Created!').should('be.visible')
   }
 
 }

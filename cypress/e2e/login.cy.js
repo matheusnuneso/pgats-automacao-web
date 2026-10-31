@@ -34,9 +34,7 @@ describe('Testes de Login', () => {
   it('CT4- Logout', () => {
     cy.visit('/login')
     login.preencherFormularioDeLogin(email, password)
-    cy.contains('a', ' Logout').click()
-
-    cy.url().should('include', '/login')    
+    login.logout() 
   })
 
   after(() => {
