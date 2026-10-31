@@ -18,6 +18,9 @@ describe('Testes de Login', () => {
   })
 
   it('CT2- Login com sucesso', () => {
+    cy.clearCookies()
+    cy.clearLocalStorage()
+    
     cy.visit('/login')
     login.preencherFormularioDeLogin(email, password)
 

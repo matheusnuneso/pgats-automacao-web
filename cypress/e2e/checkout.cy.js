@@ -31,6 +31,9 @@ describe('Testes de Checkout', () => {
     })
 
     it('CT16- Logar antes do checkout', () => {
+        cy.clearCookies()
+        cy.clearLocalStorage()
+        
         cy.visit('/login')
         login.preencherFormularioDeLogin(email, password)
         cy.contains('a', `Logged in as ${name}`).should('be.visible')
