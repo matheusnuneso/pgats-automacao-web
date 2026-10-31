@@ -1,5 +1,6 @@
 import cadastro from '../modules/cadastro'
 import login from '../modules/login'
+import produto from '../modules/produto'
 
 import { faker  } from '@faker-js/faker'
 
@@ -26,6 +27,17 @@ describe('Testes de Cadastro', () => {
         cadastro.preencherFormularioDePreCadastro(name, email)
 
         cy.contains('p', 'Email Address already exist!').should('be.visible')
+    })
+
+    it('CT10- Verificar Subscription na página de home ', () => {
+        cy.visit('')
+        cy.get('footer').scrollIntoView()
+
+        produto.subscription()
+        
+        cy.get('#success-subscribe')
+            .should('be.visible')
+            .and('contain.text', 'You have been successfully subscribed!')
     })
 
     after(() => {

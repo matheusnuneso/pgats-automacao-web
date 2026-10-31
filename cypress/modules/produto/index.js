@@ -1,3 +1,5 @@
+import { faker  } from '@faker-js/faker'
+
 class Produto {
 
     visualizarProduto(idProduto){
@@ -9,6 +11,13 @@ class Produto {
     pesquisarProduto(productName){
         cy.get('#search_product').type(productName)
         cy.get('#submit_search').click()
+    }
+
+    subscription(){
+        const email = faker.internet.email()
+
+        cy.get('#susbscribe_email').type(email)
+        cy.get('#subscribe').click()
     }
 
 
