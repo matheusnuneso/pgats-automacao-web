@@ -31,7 +31,7 @@ describe('Testes de Cadastro', () => {
     after(() => {
         cy.visit('/login')
         login.preencherFormularioDeLogin(email, password)
-        cy.contains('a', ' Delete Account').click()
+        cy.contains('a', 'Delete Account').click()
     })
 
 })
