@@ -1,38 +1,48 @@
 name: Web E2E Tests
 
-on: 
+on:
   workflow_dispatch:
 
 jobs:
   e2e-tests:
-
     runs-on: ubuntu-latest
 
-    steps: 
-
-      # clone do projeto para a máquina
+    steps:
+      # Clone do projeto
       - uses: actions/checkout@v4
 
-      # Conferir a versão instalada
+      # Configuração do Node
       - name: Node version
         run: node --version
 
+      # Instalação das dependências
       - name: Instalando dependências
         run: npm install
 
+      # Execução dos testes
       - name: Executando os testes
         run: npx cypress run
 
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+      # Geração do relatório HTML
+      - name: Gerando relatório
+        if: always()
+        run: |
+          if compgen -G "cypress/reports/*.json" > /dev/null; then
+            npx mochawesome-merge cypress/reports/*.json -o cypress/reports/report.json
+            npx marge cypress/reports/report.json --reportDir cypress/reports --reportFilename index
+          else
+            echo "Nenhum relatório encontrado."
+          fi
+
+      # Upload dos relatórios e evidências
+      - name: Salvando relatórios
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: relatorios
           path: |
             cypress/reports
             cypress/screenshots
             cypress/videos
-      
-
-      
-
-    
+          if-no-files-found: warn
+          retention-days: 15
